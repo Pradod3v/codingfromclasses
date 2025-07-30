@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Bonitinha</title>
+<style>
+    body {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .calculator {
+        background: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        width: 320px;
+    }
+
+    .display {
+        background: #222;
+        color: #0f0;
+        font-size: 2em;
+        text-align: right;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    button {
+        padding: 20px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 10px;
+        background: #f1f1f1;
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #dcdcdc;
+    }
+
+    .operator {
+        background: #4facfe;
+        color: white;
+    }
+
+    .operator:hover {
+        background: #00c2fe;
+    }
+
+    .equal {
+        background: #00b894;
+        color: white;
+        grid-column: span 2;
+    }
+
+    .equal:hover {
+        background: #00997a;
+    }
+
+    .clear {
+        background: #ff7675;
+        color: white;
+    }
+
+    .clear:hover {
+        background: #e55050;
+    }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+        <button class="clear">C</button>
+        <button class="operator">/</button>
+        <button class="operator">*</button>
+        <button class="operator">-</button>
+
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button class="operator">+</button>
+
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>.</button>
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button class="equal">=</button>
+
+        <button style="grid-column: span 2;">0</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    let currentInput = '0';
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const value = btn.textContent;
+
+            if (value === 'C') {
+                currentInput = '0';
+            } 
+            else if (value === '=') {
+                try {
+                    currentInput = eval(currentInput).toString();
+                } catch {
+                    currentInput = 'Erro';
+                }
+            } 
+            else {
+                if (currentInput === '0' || currentInput === 'Erro') {
+                    currentInput = value;
+                } else {
+                    currentInput += value;
+                }
+            }
+
+            display.textContent = currentInput;
+        });
+    });
+</script>
+
+</body>
+</html>
